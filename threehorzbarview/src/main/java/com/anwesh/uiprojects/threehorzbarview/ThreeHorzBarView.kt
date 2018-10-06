@@ -4,6 +4,7 @@ package com.anwesh.uiprojects.threehorzbarview
  * Created by anweshmishra on 07/10/18.
  */
 
+import android.app.Activity
 import android.view.View
 import android.view.MotionEvent
 import android.graphics.Canvas
@@ -185,6 +186,14 @@ class ThreeHorzBarView(ctx : Context) : View(ctx) {
             curr.startUpdating {
                 animator.start()
             }
+        }
+    }
+
+    companion object {
+        fun create(activity : Activity) : ThreeHorzBarView {
+            val view : ThreeHorzBarView = ThreeHorzBarView(activity)
+            activity.setContentView(view)
+            return view
         }
     }
 }
