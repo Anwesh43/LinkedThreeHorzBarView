@@ -164,4 +164,26 @@ class ThreeHorzBarView(ctx : Context) : View(ctx) {
             curr.startUpdating(cb)
         }
     }
+
+    data class Renderer(var view : ThreeHorzBarView) {
+
+        private val animator : Animator = Animator(view)
+        private val curr : ThreeHorzBar = ThreeHorzBar(0)
+
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(Color.parseColor("#BDBDBD"))
+            curr.draw(canvas, paint)
+            animator.animate {
+                curr.update {i, scl ->
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            curr.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
