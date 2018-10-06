@@ -13,6 +13,27 @@ import android.graphics.RectF
 import android.content.Context
 
 val nodes : Int = 5
+val colors : Array<String> = arrayOf("#3F51B5", "#f44336", "#43A047")
+
+fun Canvas.drawTHBNode(i : Int, scale : Float, paint : Paint) {
+    val w : Float = width.toFloat()
+    val h : Float = height.toFloat()
+    val gap : Float = w / (nodes + 1)
+    val hSize : Float = gap / 2
+    val wSize : Float = 2 * gap / 3
+    save()
+    translate(gap + gap * i - wSize/2, h/2 - hSize/2)
+    val k = colors.size
+    for (j in 0..2) {
+        paint.color = Color.parseColor(colors[j])
+        val sc : Float = Math.min(1f / k, Math.max(0f, scale - (1f/k) * j)) * k
+        save()
+        translate(0f, (hSize/k) * j)
+        drawRect(RectF(0f, 0f, wSize * sc, hSize/3), paint)
+        restore()
+    }
+    restore()
+}
 
 class ThreeHorzBarView(ctx : Context) : View(ctx) {
 
